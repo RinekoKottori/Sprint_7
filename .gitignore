@@ -1,8 +1,12 @@
 target
-
+.allure
 
 ### IntelliJ IDEA ###
 .idea
+*.iws
+*.iml
+*.ipr
+*.http
 
 ### Eclipse ###
 .apt_generated
@@ -28,3 +32,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Логи ###
+*.log

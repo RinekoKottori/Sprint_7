@@ -1,19 +1,19 @@
-import io.restassured.RestAssured;
+package OrderTest;
+
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import praktikum.CreateOrder;
-import praktikum.CancelOrder;
-import io.qameta.allure.junit4.*;
+import praktikum.order.CheckOrder;
+import praktikum.order.OrderClient;
 
 
 @RunWith(Parameterized.class)
 public class CreateOrderTest {
 
-    private int track;
+    int track;
     private final String firstName;
     private final String lastName;
     private final String address;
@@ -37,14 +37,9 @@ public class CreateOrderTest {
         this.color = color;
     }
 
-    @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
-    }
-
     @After //отмена заказа
     public void cancelOrder() {
-        CancelOrder orderTrack = new CancelOrder();
+        OrderClient orderTrack = new OrderClient();
         orderTrack.cancelOrder(track);
     }
 
@@ -61,9 +56,11 @@ public class CreateOrderTest {
     @Test // тест успешного создания заказа
     @DisplayName("Verification of the successful creation of new orders with various color options")
     public void createOrderTest() {
-        CreateOrder createOrder = new CreateOrder();
+        OrderClient createOrder = new OrderClient();
+        CheckOrder checkOrder = new CheckOrder();
         Response response = createOrder.createOrder(firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color); //создание заказа
-        createOrder.getOkForCreateOrder(response); // проверка тела и статус кода ответа
         track = response.then().extract().path("track"); // забор трек-номера зз для его последующей отмены
+        checkOrder.getOkForCreateOrder(response); // проверка тела и статус кода ответа
+
     }
 }
