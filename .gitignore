@@ -32,6 +32,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Логи ###
-*.log
