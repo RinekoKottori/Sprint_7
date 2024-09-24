@@ -3,11 +3,12 @@ target
 
 ### IntelliJ IDEA ###
 .idea
+.idea/.gitignore
 *.iws
 *.iml
 *.ipr
 *.http
-
+.idea/material_theme_project_new.xml
 ### Eclipse ###
 .apt_generated
 .classpath
